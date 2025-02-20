@@ -2,6 +2,7 @@ import { data } from "autoprefixer";
 import { useEffect, useState } from "react"
 
 
+const localCache = {};
 
 export const useFetch = (url) => {
 
@@ -29,6 +30,15 @@ export const useFetch = (url) => {
     
 
     const getfetch = async () => {
+        if(localCache[url]){
+            setState({
+                data: localCache[url],
+                isLoading: false,
+                hasError: false,
+                error: null
+            });
+            return;
+        }
         setLoading();
         const response = await fetch(url);
         
@@ -60,8 +70,9 @@ export const useFetch = (url) => {
         
 
         //Manejo de cache 
+        localCache[url] = data;
 
-        console.log({data});
+        
     }
 
     return{

@@ -15,18 +15,22 @@ export default function MultiplesCustomHooks() {
       <hr />
 
       {
-        isLoading ?
-          <LoadingMessage /> :
-          <PokemonCard 
-          id={counter}
-          name={data.name}
-          sprites={[
-            data.sprites.front_default,
-            data.sprites.front_shiny,
-            data.sprites.back_default,
-            data.sprites.back_shiny
-          ]}
-          />
+        isLoading ? (
+          <LoadingMessage />
+        ) : (
+          data && data.sprites && (
+            <PokemonCard
+              id={counter}
+              name={data.name}
+              sprites={[
+                data.sprites.front_default,
+                data.sprites.front_shiny,
+                data.sprites.back_default,
+                data.sprites.back_shiny
+              ]}
+            />
+          )
+        )
       }
       <br />
       <br />
